@@ -1,0 +1,86 @@
+﻿<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/home.css') }}">
+</head>
+<body>
+    <h1>Welcome {{name}}</h1>
+    <nav id="navigation">
+        <a href="/select_blogger">Find Blogger</a> |
+        <a class="button" href="/friendgroup"> Friend Groups </a> |
+        <a class="button" href="/friends"> Friends </a> |
+        <a class="button" href="/managetags"> Manage Tags </a> |
+        <a class="button" href="/mypost"> My Profile </a> |
+        <a class="button" href="/users"> Users </a> |
+        <a class="button" href="/logout">Logout</a>
+        <br> <br> <br> <br>
+    </nav>
+    <form action="/post" method="POST">
+        <input type="text" name="blog" placeholder="post" required /> <br>
+        <input type="checkbox" id="public" name="is_pub">
+        <label for="public">Public</label>
+        <input type="submit" name="button" value=Post />
+    </form>
+
+    Here are your posts:
+
+    <table>
+        <th>Time</th>
+        <th>Email</th>
+        <th>Post</th>
+        <th>Rating</th>
+        <th>Votes</th>
+        <th>Reaction</th>
+
+        {% for line in posts %}
+        <tr>
+            <td>{{line.post_time}}</td>
+            <td>{{line.email}}</td>
+            <td>{{line.item_name}}</td>
+            <td>{{line.tot_votes}}</td>
+            <td>
+                <form action="/rate_h" method="POST">
+                    <label>
+                        <input type="radio" value="1" name="like" />Like
+                    </label>
+                    <label>
+                        <input type="radio" value="-1" name="like" />Dislike
+                    </label>
+                    <input type="hidden" name="itemid" value={{line.item_id}}>
+                    <input type="submit" name="vote-button" value=Vote />
+                </form>
+            </td>
+            <td>{{line.emoji}}</td>
+
+            <td>
+                <form action="/add_emoji" method="POST">
+                    <input type="hidden" name="post_id" value={{line.item_id}}
+                    <input type="submit" name="emoji" value=":)" />
+                </form>
+                <form action="/add_emoji" method="POST">
+                    <input type="hidden" name="post_id" value={{line.item_id}}>
+                    <input type="submit" name="emoji" value=":|" />
+                </form>
+                <form action="/add_emoji" method="POST">
+                    <input type="hidden" name="post_id" value={{line.item_id}}>
+                    <input type="submit" name="emoji" value=":O" />
+                </form>
+            </td>
+            <td>
+                <form action="/comments" method="POST">
+                    <input type="hidden" name="post_id" value={{line.item_id}}>
+                    <input type="submit" name="comment" value=Comment />
+                </form>
+            </td>
+            <td>
+                <form action="/tags" method="POST">
+                    <input type="hidden" name="post_id" value={{line.item_id}}>
+                    <input type="submit" name="add" value=Tag />
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+
+</html>

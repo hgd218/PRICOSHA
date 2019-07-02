@@ -1,0 +1,56 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/home.css') }}">
+</head>
+<body>
+    <h1>Friends</h1>
+    <nav id="friends">
+        <a class="button" href="/home"> Home </a> |
+        <a class="button" href="/friendgroup"> FriendGroups </a> |
+        <a class="button" href="/friends"> Friends </a> |
+        <a class="button" href="/managetags"> Manage Tags </a> |
+        <a class="button" href="/mypost"> My Profile </a> |
+        <a class="button" href="/users"> Users </a> |
+        <a class="button" href="/logout">Logout</a>
+        <br> <br> <br> <br>
+    </nav>
+    <div style="width:50%; float:left;">
+        <h2>Add a friend</h2>
+        <form action="/add_friend" method="POST">
+            <input type="text" name="friendgroup" placeholder="Friend group that you own" required /><br>
+            <input type="text" name="fname" placeholder="First name" required /><br>
+            <input type="text" name="lname" placeholder="Last name" required /><br>
+            <input type="submit" value="Add Friend" />
+            {%if error%}
+            <p class="error"><strong>Error:</strong> {{error}}</p>
+            {% endif %}
+        </form>
+    </div>
+    <div style="width:50%; float:right;">
+        <h2>Delete Friend</h2>
+        <form action="/deletefriend" method="POST">
+            <input type="text" class="form-control" name="email" placeholder="Your Friend's Username" required />
+            <br />
+            <input type="text" class="form-control" name="friendgroup" placeholder="Group Name" required />
+            <br />
+            <input type="submit" class="btn btn-primary" value=Delete />
+        </form>
+    </div>
+
+    <table>
+        <th>Your Friends</th>
+        <tr>
+            <table>
+                {% for line in urFriends %}
+                <tr>
+                    <td> <b> {{ line.email_creator }} </b> </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </tr>
+    </table>
+    <hr>
+
+
+</body>
+</html>

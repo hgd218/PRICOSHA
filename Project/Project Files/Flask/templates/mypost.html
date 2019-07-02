@@ -1,0 +1,43 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/home.css') }}">
+  </head>
+<body>
+    <h1>My Profile</h1>
+    <nav id="navigation">
+        <a class="button" href="/home"> Home </a> |
+        <a class="button" href="/friendgroup"> FriendGroups </a> |
+        <a class="button" href="/friends"> Friends </a> |
+        <a class="button" href="/managetags"> Manage Tags </a> |
+        <a class="button" href="/mypost"> My Profile </a> |
+        <a class="button" href="/users"> Users </a> |
+        <a class="button" href="/logout">Logout</a>
+        <br> <br>
+    </nav>
+    <h2>About Me</h2>
+    <p>{{about}}</p>
+    <form action="/about_me" method="POST">
+        <input type="text" name="about" placeholder="Write Something..."/> </br>
+        <input type="submit" name="submit" value=Submit />
+    </form>
+    <h2>My Posts</h2>
+    <table>
+
+        <th>Time</th>
+        <th>Post</th>
+        <th>Rating</th>
+
+        {% for line in posts %}
+        <tr>
+            <td> {{ line.post_time }} </td>
+            <td> {{ line.item_name }} </td>
+            <td> {{ line.tot_votes }} </td>
+        </tr>
+        {% endfor %}
+            
+    </table>
+    <hr>
+
+
+</body>
+</html>

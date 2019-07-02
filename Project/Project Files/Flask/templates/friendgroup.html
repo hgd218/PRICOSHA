@@ -1,0 +1,56 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/home.css') }}">
+</head>
+<body>
+	<h1>Friend Groups</h1>
+    <nav id="navigation">
+        <a class="button" href="/home"> Home </a> |
+        <a class="button" href="/friendgroup"> FriendGroups </a> |
+        <a class="button" href="/friends"> Friends </a> |
+        <a class="button" href="/managetags"> Manage Tags </a> |
+        <a class="button" href="/mypost"> My Profile </a> |
+        <a class="button" href="/users"> Users </a> |
+        <a class="button" href="/logout">Logout</a>
+        <br> <br> <br> <br>
+    </nav>
+<form action="/createFG" method="Post">
+      <h3> Create A FriendGroup </h3>
+      <input type="text" name="fg_name" placeholder="Friendgroup Name" required/><br>
+      <input type="text" name="description" placeholder="Description"> <br>
+      <input type="submit" value="Create FriendGroup"> <br>
+    </form>
+    <div style="width:50%; float:left;">
+        <h3>You Own</h3>
+        <table>
+            <th>Group Name</th>
+            <th>Descrinption</th>
+            {% for line in ownFG %}
+            <tr>
+                <td> {{ line.fg_name }} </td>
+                <td> {{ line.description }} </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div style="width:50%; float:right;">
+        <h3>You Are A Member Of</h3>
+        <table>
+            <th>Group Name</th>
+            <th>Owner</th>
+            <th>Description</th>
+
+            {% for line in memFG %}
+            <tr>
+                <td>{{line.fg_name }}</td>
+                <td>{{line.owner_email}}</td>
+                <td>{{line.description }} </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</body>
+
+
+</html>

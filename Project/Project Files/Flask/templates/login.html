@@ -1,0 +1,48 @@
+<html>
+<head>
+    <style>
+        body {
+            text-align: center;
+            font-size: 30px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        input {
+            width: 500px;
+            font-size: 16px;
+        }
+
+            input[name="submit"] {
+                font-size: 20px;
+                color: white;
+                background-color: #13DC47;
+                padding: 14px 25px;
+                border: none;
+            }
+
+                input[name="submit"]:hover {
+                    background-color: white;
+                    color: #29A3FF;
+                    border: 2px solid #13DC47;
+                }
+    </style>
+</head>
+<body>
+<form action="/loginAuth" method="POST">
+	<input type="text" name = "email" placeholder="email" required/> </br>
+	<input type="password" name = "password" placeholder="password" required/></br>
+	<input type="submit" name="submit" value = Login />
+	{% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+</form>
+
+<a href="/">Go back</a>
+
+</body>
+
+
+</html>

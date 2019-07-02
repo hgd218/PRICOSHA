@@ -1,0 +1,75 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/home.css') }}">
+</head>
+<body>
+    <nav id="navigation">
+        <a class="button" href="/home"> Home </a> |
+        <a class="button" href="/logout">Logout</a>
+        <br> <br> <br> <br>
+    </nav>
+    <form action="/comment" method="POST">
+        <input type="text" name="blog" placeholder="post" required /> <br>
+        <input type="checkbox" id="public" name="is_pub">
+        <label for="public">Public</label>
+        <input type="hidden" value={{orig_postid}} name="itemid">
+        <input type="submit" name="button" value=Comment />
+    </form>
+    <table>
+        <tr></tr>
+        <tr>
+            <td>{{orig_post.post_time}}</td>
+            <td>{{orig_post.email}}</td>
+            <td>{{orig_post.item_name}}</td>
+            <td>{{orig_post.tot_votes}}</td>
+            <td>
+                <form action="/rate_c" method="POST">
+                    <label>
+                        <input type="radio" value="1" name="like" />Like
+                    </label>
+                    <label>
+                        <input type="radio" value="-1" name="like" />Dislike
+                    </label>
+                    <input type="hidden" name="itemid" value={{orig_postid}}>
+                    <input type="hidden" name="orig_post" value={{orig_postid}}>
+                    <input type="submit" name="vote-button" value=Vote />
+                </form>
+            </td>
+        </tr>
+    </table>
+    <br>
+    Comments:
+
+    <table>
+        <th>Time</th>
+        <th>Email</th>
+        <th>Post</th>
+        <th>Rating</th>
+        <th>Votes</th>
+
+        {% for line in posts %}
+        <tr>
+            <td>{{line.post_time}}</td>
+            <td>{{line.email}}</td>
+            <td>{{line.item_name}}</td>
+            <td>{{line.tot_votes}}</td>
+            <td>
+                <form action="/rate_c" method="POST">
+                    <label> <input type="radio" value="1" name="like" />Like </label>
+                    <label> <input type="radio" value="-1" name="like" />Dislike </label>
+                    <input type="hidden" name="itemid" value={{line.item_id}}>
+                    <input type="hidden" name="orig_post" value={{orig_postid}}>
+                    <input type="submit" name="vote-button" value=Vote />
+                </form>
+            </td>
+            <td>
+                <form action="/comments" method="POST">
+                    <input type="hidden" name="post_id" value={{line.item_id}}>
+                    <input type="submit" name="vote-button" value=Comment />
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

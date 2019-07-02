@@ -1,0 +1,25 @@
+<html>
+<head>
+</head>
+<body>
+    <nav id="navigation">
+        <a class="button" href="/home"> Home </a> |
+        <a class="button" href="/logout">Logout</a>
+        <br> <br> 
+    </nav>
+
+    Whose posts would you like to see?
+    <br>
+
+    <form action="/show_posts" method="GET">
+        {% for line in user_list %}
+        <input type="radio" name="poster" value={{line.email}}>{{line.email}}</input>
+        <br>
+        {% endfor %}
+        <input type="submit" value="View Posts">
+    </form>
+    
+</body>
+
+
+</html>

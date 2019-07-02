@@ -1,0 +1,52 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/home.css') }}">
+</head>
+<body>
+    <nav id="navigation">
+        <a class="button" href="/home"> Home </a> |
+        <a class="button" href="/logout">Logout</a>
+        <br> <br>
+    </nav>
+    <a href="/select_blogger">Select another blogger</a>
+    <br><br>
+        <h3>Here are posts by {{poster_name}}:</h3>
+    <br>
+
+    <table>
+        <th>Time</th>
+        <th>Post</th>
+        <th>Rating</th>
+        <th>Votes</th>
+        {% for line in posts %}
+        <tr>
+            <td>{{line.post_time}}</td>
+            <td>{{line.item_name}}</td>
+            <td>{{line.tot_votes}}</td>
+            <td>
+                <form action="/rate_p" method="POST">
+                    <label> <input type="radio" value="1" name="like" />Like </label>
+                    <label> <input type="radio" value="-1" name="like" />Dislike </label>
+                    <input type="hidden" name="itemid" value={{line.item_id}}>
+                    <input type="hidden" name="poster" value={{poster_name}}>
+                    <input type="submit" name="vote-button" value=Vote />
+                </form>
+            </td>
+            <td>
+                <form action="/comments" method="POST">
+                    <input type="hidden" name="post_id" value={{line.item_id}}>
+                    <input type="submit" name="vote-button" value=Comment />
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <br>
+
+
+</body>
+
+
+</html>

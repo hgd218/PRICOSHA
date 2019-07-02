@@ -1,0 +1,25 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/home.css') }}">
+</head>
+<body>
+    <form action="/addTag" method="Post">
+        <h3> Tag Email to Post </h3>
+        <input type="text" name="name" placeholder="email" required /><br>
+        <input type="hidden" value={{orig_postid}} name="itemid">
+        <input type="submit" name="button" value=Tag> <br>
+        {% if error %}
+        <p class="error"><strong>Error:</strong> {{error}}</p>
+        {% endif %}
+    </form>
+    <form action="/addGroupTag" method="Post">
+        <h3> Tag Group to Post </h3>
+        <input type="text" name="group" placeholder="email" required /><br>
+        <input type="hidden" value={{orig_postid}} name="itemid">
+        <input type="submit" name="button" value=Tag> <br>
+        {% if error %}
+        <p class="error"><strong>Error:</strong> {{error}}</p>
+        {% endif %}
+    </form>
+</body>
+</html>
